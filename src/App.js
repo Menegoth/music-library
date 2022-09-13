@@ -1,6 +1,10 @@
-import { useState, useRef }from "react";
+import { useState, useRef, Fragment }from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Gallery from "./components/Gallery";
 import SearchBar from "./components/SearchBar";
+import ArtistView from "./components/ArtistView";
+import AlbumView from "./components/AlbumView";
+
 import "./App.css"
 
 import { DataContext } from "./context/DataContext";
@@ -32,15 +36,25 @@ function App() {
 
   return (
     <div className="App">
-      <SearchContext.Provider value={{
-        term: searchInput,
-        handleSearch: handleSearch
-      }}>
-        <SearchBar />
-      </SearchContext.Provider>
       {message}
       <DataContext.Provider value={data}>
-        <Gallery />
+        <Router>
+          <Routes>
+            <Route path="/" element={
+              <Fragment>
+                <SearchContext.Provider value={{
+                  term: searchInput,
+                  handleSearch: handleSearch
+                }}>
+                  <SearchBar />
+                </SearchContext.Provider>
+                <Gallery />
+              </Fragment>
+            } />
+            <Route path="/album/:id" element={<AlbumView />} />
+            <Route path="/artist/:id" element={<ArtistView />} />
+          </Routes>
+        </Router>
       </DataContext.Provider>
     </div>
   );
