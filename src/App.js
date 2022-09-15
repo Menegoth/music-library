@@ -4,6 +4,7 @@ import Gallery from "./components/Gallery";
 import SearchBar from "./components/SearchBar";
 import ArtistView from "./components/ArtistView";
 import AlbumView from "./components/AlbumView";
+import SongView from "./components/SongView";
 
 import "./App.css"
 
@@ -36,12 +37,12 @@ function App() {
 
   return (
     <div className="App">
-      {message}
       <DataContext.Provider value={data}>
         <Router>
           <Routes>
             <Route path="/" element={
               <Fragment>
+                      {message}
                 <SearchContext.Provider value={{
                   term: searchInput,
                   handleSearch: handleSearch
@@ -53,6 +54,7 @@ function App() {
             } />
             <Route path="/album/:id" element={<AlbumView />} />
             <Route path="/artist/:id" element={<ArtistView />} />
+            <Route path="/song/:id" element={<SongView />} />
           </Routes>
         </Router>
       </DataContext.Provider>

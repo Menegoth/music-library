@@ -12,7 +12,6 @@ function AlbumView() {
             const response = await fetch(API_URL);
             const resData = await response.json();
             setAlbumData(resData.results);
-            console.log(resData.results)
         }
         fetchData();
     }, [id]);
@@ -21,7 +20,9 @@ function AlbumView() {
     const renderSongs = songs.map((song, i) => {
         return (
             <div key={i}>
-                <p>{song.trackName}</p>
+                <Link to={`/song/${song.trackId}`}>
+                    <p>{song.trackName}</p>
+                </Link>
             </div>
         )
     });
